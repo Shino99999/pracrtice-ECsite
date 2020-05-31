@@ -121,5 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+#以下はデフォルトには無い設定の内容
 LOGIN_URL = 'register:login'
 LOGIN_REDIRECT_URL = 'register:top'
+AUTH_USER_MODEL = 'app.User'
