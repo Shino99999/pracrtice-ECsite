@@ -4,7 +4,8 @@ from django.contrib.auth.views import (
     LoginView, LogoutView
 )
 from django.views import generic
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
+from django.views.generic.edit import FormView
 
 
 class Top(generic.TemplateView):
@@ -20,3 +21,22 @@ class Login(LoginView):
 class Logout(LogoutView):
     """ログアウトページ"""
     template_name = 'register/top.html'
+
+
+class Signup(FormView):
+    """ユーザーの登録"""
+    template_name = 'register/signup.html'
+
+    form_class = SignupForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SignupForm()
+        return context
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.save()
+
+        redirect('login')
