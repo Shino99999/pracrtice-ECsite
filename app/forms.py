@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
+from .models import User
 
 
 
@@ -13,8 +14,12 @@ class LoginForm(AuthenticationForm):
             field.widget.attrs['placeholder'] = field.label
 
 
-class SignupForm(forms.Form):
+class SignupForm(forms.ModelForm):
     """ユーザーの登録用のフォーム"""
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email", "password")
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

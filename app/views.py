@@ -6,6 +6,7 @@ from django.contrib.auth.views import (
 from django.views import generic
 from .forms import LoginForm, SignupForm
 from django.views.generic.edit import FormView
+from django.shortcuts import redirect
 
 
 class Top(generic.TemplateView):
@@ -26,7 +27,7 @@ class Logout(LogoutView):
 class Signup(FormView):
     """ユーザーの登録"""
     template_name = 'register/signup.html'
-
+    success_url = '/login'
     form_class = SignupForm
 
     def get_context_data(self, **kwargs):
@@ -39,4 +40,4 @@ class Signup(FormView):
         # It should return an HttpResponse.
         form.save()
 
-        redirect('login')
+        return super().form_valid(form)

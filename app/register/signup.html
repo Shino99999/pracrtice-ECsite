@@ -10,6 +10,9 @@
                     {{ field.errors }}
                     <hr>
                 {% endfor %}
+                <div class="login">
+                    <a href={% url 'register:login' %}>ログインはこちら</a>
+                </div>
                 <button type="submit" class="btn btn-success btn-lg btn-block" >ユーザー登録</button>
                 <input type="hidden" name="next" value="{{ next }}" />
                 {% csrf_token %}
