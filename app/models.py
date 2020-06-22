@@ -40,6 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
+    is_staff = models.BooleanField(default=False)
 
     is_active = models.BooleanField(
         _('active'),
@@ -82,3 +83,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         メールアドレスを返す
         """
         return self.email
+
+
+class Content(models.Model):
+    class Meta:
+        db_table = 'content'
+
+    title = models.CharField(verbose_name='商品', blank=True, max_length=255)
+    price = models.IntegerField(verbose_name='価格', blank=True)
+    description = models.TextField(verbose_name='説明', blank=True)
+
+    def __str__(self):
+        return self.title

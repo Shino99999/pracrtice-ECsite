@@ -6,7 +6,8 @@ from django.contrib.auth.views import (
 from django.views import generic
 from .forms import LoginForm, SignupForm
 from django.views.generic.edit import FormView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from .models import Content
 
 
 class Top(generic.TemplateView):
@@ -41,3 +42,9 @@ class Signup(FormView):
         form.save()
 
         return super().form_valid(form)
+
+
+def contents_list(request):
+    contents = Content.objects.all()
+
+    return render(request, 'content/contents_list.html', contents)
